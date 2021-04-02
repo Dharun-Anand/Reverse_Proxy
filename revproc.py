@@ -27,9 +27,9 @@ if __name__ == "__main__":
     try:        
         cmdArgs = get_cmdArgs()
         
-        print("Starting Revers Proxy Server at Port %s",cmdArgs[0])
+        print("Starting Reverse Proxy Server at Port " + cmdArgs[0])
         HOST = '127.0.0.1'
-        PORT = cmdArgs[0]
+        PORT = int(cmdArgs[0])
         
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             s.bind((HOST, PORT))

@@ -36,9 +36,9 @@ if __name__ == "__main__":
         cmdArgs = get_cmdArgs()
         pktData = json.dumps(get_pktData(cmdArgs[2]))
         
-        print("Starting Client %s",cmdArgs[0])
+        print("Starting Client " + cmdArgs[0])
         HOST = '127.0.0.1'
-        PORT = cmdArgs[1]
+        PORT = int(cmdArgs[1])
         
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             s.connect((HOST, PORT))
