@@ -33,7 +33,7 @@ def add_Server(pkt):
 def client2server(pkt):
     global serverList
     
-    indServer = next((index for (index, d) in enumerate(serverList) if (int(d["privPoliId"]) == int(pkt["privPoliId"])) ), None)
+    indServer = next((index for (index, d) in enumerate(serverList) if (d["privPoliId"] == pkt["privPoliId"]) ), None)
     port = int(serverList[indServer]["listenport"][ serverList[indServer]["roundrobin"] ])
     serverID = serverList[indServer]["id"][ serverList[indServer]["roundrobin"] ]
     print("Forwarding a data message to server id",serverID,"payload:",pkt["payload"])
