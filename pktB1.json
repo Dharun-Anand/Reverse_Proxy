@@ -1,7 +1,7 @@
 {
 	"type": 0,
-	"srcid": B1,
-	"privPoliId": BBB,
+	"srcid": "B1",
+	"privPoliId": "BBB",
 	"payloadsize": 999,
 	"payload": "xyz"
 }

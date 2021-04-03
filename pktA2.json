@@ -1,7 +1,7 @@
 {
 	"type": 0,
-	"srcid": A2,
-	"privPoliId": AAA,
+	"srcid": "A2",
+	"privPoliId": "AAA",
 	"payloadsize": 999,
 	"payload": "cde"
 }
