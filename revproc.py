@@ -29,12 +29,12 @@ def add_Server(pkt):
         serverList.append({ "privPoliId":pkt["privPoliId"], "id":[pkt["id"]], "listenport":[pkt["listenport"]], "roundrobin":0 })
     else:
         serverList[indServer]['id'].append(pkt["id"]); serverList[indServer]['listenport'].append(pkt["listenport"])
-        
+
 def client2server(pkt):
     global serverList
     
-    indServer = next((index for (index, d) in enumerate(serverList) if (d["privPoliId"] == pkt["privPoliId"]) ), None)
-    port = serverList[indServer]["listenport"][ serverList[indServer]["roundrobin"] ]
+    indServer = next((index for (index, d) in enumerate(serverList) if (int(d["privPoliId"]) == int(pkt["privPoliId"])) ), None)
+    port = int(serverList[indServer]["listenport"][ serverList[indServer]["roundrobin"] ])
     serverID = serverList[indServer]["id"][ serverList[indServer]["roundrobin"] ]
     print("Forwarding a data message to server id",serverID,"payload:",pkt["payload"])
     
@@ -56,7 +56,7 @@ def client2server(pkt):
         pktHash = bytes(json.dumps(pktHash),encoding="utf-8") 
         return pktHash    
 
-serverList = {}
+serverList = []
     
 if __name__ == "__main__":
     try:        

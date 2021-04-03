@@ -43,7 +43,7 @@ if __name__ == "__main__":
         cmdArgs = get_cmdArgs()
         init_pkt = {"type":1,"id":cmdArgs[0],"privPoliId":cmdArgs[1],"listenport":cmdArgs[2]}
         
-        setup_Server(init_pkt)
+        setup_Server(init_pkt,int(cmdArgs[3]))
         
         print("Running server with id",cmdArgs[0])
         print("Server serving privacy policy",cmdArgs[1])
@@ -59,7 +59,6 @@ if __name__ == "__main__":
             while True:
                 conn, addr = s.accept()
                 with conn:
-                    print('Connected by', addr)
                     while True:
                          pkt = conn.recv(1024)                         
                          if not pkt:
@@ -67,7 +66,7 @@ if __name__ == "__main__":
                          pkt = json.loads(pkt.decode("utf-8"))
                          print("Received a message from client",pkt["srcid"],"payload:",pkt["payload"])
                          
-                         pktHash = hashlib.sha1(pkt["payload"].encode())
+                         pktHash = (hashlib.sha1(pkt["payload"].encode())).hexdigest()
                          
                          pkt = {"type":2,"srcid":cmdArgs[0],"destid":pkt["srcid"],"payloadsize":pkt["payloadsize"],"payload":pktHash}
                          print("Sending a response to the client",pkt["destid"],"payload:",pkt["payload"])
