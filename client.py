@@ -2,7 +2,6 @@
 
 """
 Created on Fri Mar 26 20:54:56 2021
-
 @author: Dharun Anand
 """
 
@@ -34,25 +33,22 @@ def get_pktData(pktName):
 if __name__ == "__main__":
     try:        
         cmdArgs = get_cmdArgs()
-        pktData = json.dumps(get_pktData(cmdArgs[2]))
+        pkt = get_pktData(cmdArgs[2])
         
-        print("Starting Client " + cmdArgs[0])
         HOST = '127.0.0.1'
         PORT = int(cmdArgs[1])
         
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             s.connect((HOST, PORT))
-            s.sendall(bytes(pktData,encoding="utf-8"))
+            print("Sending message",pkt["payload"],"to privacy policy",pkt["payload"],"through reverse proxy running on port",PORT)
             
-            #USE THIS ON SERVER SIDE: received = received.decode("utf-8")
+            pkt = bytes(json.dumps(pkt),encoding="utf-8") 
+            s.sendall(pkt)
             
-            rcvdData = s.recv(1024)
-    
-        print('Received', rcvdData.decode("utf-8"))
+            pkt = s.recv(1024)
+            pkt = json.loads(pkt.decode("utf-8"))
+            
+            print("Receiving a response from the server",pkt["srcid"],"payload:",pkt["payload"])
+
     except KeyboardInterrupt:
         pass
-  
-
-
-
-
